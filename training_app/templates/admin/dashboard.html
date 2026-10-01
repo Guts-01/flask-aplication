@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block title %}Administração{% endblock %}
+{% block content %}
+<div class="page-heading"><div><p class="eyebrow">ADMINISTRAÇÃO</p><h1>Gerenciar usuários<span class="accent-dot">.</span></h1><p class="muted">Consulte as contas cadastradas neste computador.</p></div><span class="count-pill">{{ users|length }} conta{% if users|length != 1 %}s{% endif %}</span></div>
+<section class="card table-card" aria-labelledby="users-title">
+  <div class="card-heading"><div><p class="eyebrow">CONTAS LOCAIS</p><h2 id="users-title">Usuários cadastrados</h2></div></div>
+  <div class="table-scroll">
+    <table>
+      <caption class="visually-hidden">Lista de usuários cadastrados</caption>
+      <thead><tr><th scope="col">Nome</th><th scope="col">Email</th><th scope="col">Perfil</th><th scope="col">Ação</th></tr></thead>
+      <tbody>
+      {% for user in users %}
+        <tr>
+          <th scope="row">{{ user.name }}{% if user.id == current_user.id %} <span class="you-tag">Você</span>{% endif %}</th>
+          <td>{{ user.email }}</td>
+          <td><span class="role-tag">{% if user.is_admin %}Admin{% else %}Pessoal{% endif %}</span></td>
+          <td>{% if user.id != current_user.id %}<details class="table-delete"><summary>Excluir</summary><form action="{{ url_for('admin.delete_user', user_id=user.id) }}" method="post"><input type="hidden" name="csrf_token" value="{{ csrf_token() }}"><button class="delete-link" type="submit" aria-label="Confirmar exclusão de {{ user.name }}">Confirmar exclusão</button></form></details>{% else %}<span class="muted">—</span>{% endif %}</td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</section>
+{% endblock %}

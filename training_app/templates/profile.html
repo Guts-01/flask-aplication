@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% block title %}Minha conta{% endblock %}
+{% block content %}
+<div class="page-heading">
+  <div><p class="eyebrow">CONFIGURAÇÕES</p><h1>Minha conta<span class="accent-dot">.</span></h1><p class="muted">Consulte seus dados e cuide do acesso à sua conta.</p></div>
+</div>
+<div class="settings-grid">
+  <section class="card settings-card" aria-labelledby="account-title">
+    <p class="eyebrow">PERFIL</p>
+    <h2 id="account-title">Seus dados</h2>
+    <dl class="details-list">
+      <div><dt>Nome</dt><dd>{{ current_user.name }}</dd></div>
+      <div><dt>Email</dt><dd>{{ current_user.email }}</dd></div>
+      <div><dt>Tipo de conta</dt><dd>{% if current_user.is_admin %}Administrador{% else %}Pessoal{% endif %}</dd></div>
+    </dl>
+  </section>
+  <section class="card settings-card" aria-labelledby="password-title">
+    <p class="eyebrow">SEGURANÇA</p>
+    <h2 id="password-title">Alterar senha</h2>
+    <p class="muted">Depois da alteração, você precisará entrar novamente.</p>
+    <form action="{{ url_for('auth.change_password') }}" method="post" class="form-stack">
+      <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+      <div class="field"><label for="old_password">Senha atual</label><input id="old_password" name="old_password" type="password" autocomplete="current-password" required></div>
+      <div class="field"><label for="new_password">Nova senha</label><input id="new_password" name="new_password" type="password" autocomplete="new-password" minlength="12" aria-describedby="new-password-hint" required><small id="new-password-hint">Use pelo menos 12 caracteres.</small></div>
+      <div class="field"><label for="confirm_password">Confirme a nova senha</label><input id="confirm_password" name="confirm_password" type="password" autocomplete="new-password" minlength="12" required></div>
+      <button class="button button-primary" type="submit">Salvar nova senha</button>
+    </form>
+  </section>
+</div>
+<section class="card danger-zone" aria-labelledby="delete-title">
+  <div><p class="eyebrow">ZONA DE CUIDADO</p><h2 id="delete-title">Excluir minha conta</h2><p class="muted">Esta ação remove seus dados do banco local e não pode ser desfeita.</p></div>
+  <details class="delete-details">
+    <summary>Quero excluir minha conta</summary>
+    <form action="{{ url_for('auth.delete_account') }}" method="post" class="form-stack">
+      <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+      <div class="field"><label for="delete_password">Confirme sua senha</label><input id="delete_password" name="password" type="password" autocomplete="current-password" required></div>
+      <button class="button button-danger" type="submit">Excluir conta definitivamente</button>
+    </form>
+  </details>
+</section>
+{% endblock %}

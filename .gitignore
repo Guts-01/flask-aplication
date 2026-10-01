@@ -1,0 +1,6 @@
+__pycache__/
+*.py[cod]
+.venv/
+instance/*.sqlite*
+instance/secret_key
+.pytest_cache/

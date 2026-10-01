@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% block title %}Visão geral{% endblock %}
+{% block content %}
+<div class="page-heading">
+  <div>
+    <p class="eyebrow">PAINEL PESSOAL</p>
+    <h1>Olá, {{ current_user.name }}<span class="accent-dot">.</span></h1>
+    <p class="muted">Bem-vindo ao seu espaço de estudos.</p>
+  </div>
+  <a class="button button-outline" href="{{ url_for('main.profile') }}">Gerenciar conta <span aria-hidden="true">→</span></a>
+</div>
+
+<section class="demo-section" aria-labelledby="overview-title">
+  <div class="section-heading">
+    <div>
+      <p class="eyebrow">VISÃO GERAL</p>
+      <h2 id="overview-title">Um painel para explorar</h2>
+    </div>
+    <span class="demo-badge">Dados ilustrativos</span>
+  </div>
+  <div class="stat-grid">
+    <article class="stat-card">
+      <span class="stat-symbol symbol-orange" aria-hidden="true">↗</span>
+      <p>Vendas do mês</p><strong>R$ 25.000</strong><small>Exemplo de indicador</small>
+    </article>
+    <article class="stat-card">
+      <span class="stat-symbol symbol-purple" aria-hidden="true">✦</span>
+      <p>Novos usuários</p><strong>150</strong><small>Exemplo de indicador</small>
+    </article>
+    <article class="stat-card">
+      <span class="stat-symbol symbol-green" aria-hidden="true">◉</span>
+      <p>Visitas ao site</p><strong>1.200</strong><small>Exemplo de indicador</small>
+    </article>
+    <article class="stat-card">
+      <span class="stat-symbol symbol-blue" aria-hidden="true">⌁</span>
+      <p>Conversões</p><strong>75%</strong><small>Exemplo de indicador</small>
+    </article>
+  </div>
+</section>
+
+<div class="dashboard-grid">
+  <section class="card chart-card" aria-labelledby="activity-title">
+    <div class="card-heading"><div><p class="eyebrow">DEMONSTRAÇÃO</p><h2 id="activity-title">Atividade semanal</h2></div><span class="chart-key">Visualização de exemplo</span></div>
+    <div class="bar-chart" role="img" aria-label="Gráfico ilustrativo de atividade de segunda a domingo, sem dados reais">
+      <span class="bar bar-55"><i></i><small>Seg</small></span>
+      <span class="bar bar-72"><i></i><small>Ter</small></span>
+      <span class="bar bar-48"><i></i><small>Qua</small></span>
+      <span class="bar bar-84"><i></i><small>Qui</small></span>
+      <span class="bar bar-68"><i></i><small>Sex</small></span>
+      <span class="bar bar-95"><i></i><small>Sáb</small></span>
+      <span class="bar bar-60"><i></i><small>Dom</small></span>
+    </div>
+  </section>
+  <aside class="card note-card" aria-labelledby="about-title">
+    <span class="note-icon" aria-hidden="true">✳</span>
+    <p class="eyebrow">SOBRE ESTE PROJETO</p>
+    <h2 id="about-title">Aprender fazendo.</h2>
+    <p>Esta aplicação é um laboratório local de Flask. O painel mostra valores de exemplo; sua conta e suas preferências são guardadas no banco SQLite deste computador.</p>
+    <a href="{{ url_for('main.profile') }}">Ver meus dados <span aria-hidden="true">→</span></a>
+  </aside>
+</div>
+{% endblock %}
